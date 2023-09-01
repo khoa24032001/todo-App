@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React, {useState} from 'react'
 import './App.css';
+import { Header } from './components/header';
+import { ColorTag } from './components/colorTag';
+import { ComboButton } from './components/buttons';
+import { CheckBox } from './components/checkbox';
+import { TodoItem } from './components/todoItem';
 
 function App() {
+  const [completed, isCompleted] = useState(false)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header title="Todo App" />
+      <ColorTag color="Blue"/>
+      <ComboButton/>
+      <CheckBox completed={completed} change={isCompleted}/>
+      <TodoItem color="Red" status={completed} changeStatus={isCompleted}/>
     </div>
   );
 }
