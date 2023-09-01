@@ -21,9 +21,9 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   }));
 
 
-export const TodoItem = ({color, status, changeStatus}) => {
+export const TodoItem = ({content, color, status, changeStatus}) => {
     return (
-    <Box sx={{ flexGrow: 1,  border: "3px solid black" }}>
+    <Box sx={{ flexGrow: 1,  border: "2px solid black", marginBottom: "15px" }}>
       <AppBar position="static" sx={{bgcolor: "#ffffff"}}>
         <StyledToolbar>
           <IconButton
@@ -39,8 +39,11 @@ export const TodoItem = ({color, status, changeStatus}) => {
             variant="h5"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, alignSelf: 'flex-end', color: "black" }}
+            sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, alignSelf: '', rowGap: '50px', color: "black" }}
           >
+            <div style={{fontWeight: 'bold'}}>
+              {content}
+            </div>
             <ColorTag color={color}/>
           </Typography>
           <ComboButton/>
@@ -52,6 +55,7 @@ export const TodoItem = ({color, status, changeStatus}) => {
 }
 
 TodoItem.propTypes = {
+    content: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     status: PropTypes.bool.isRequired,
     changeStatus: PropTypes.func.isRequired
