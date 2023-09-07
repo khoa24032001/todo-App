@@ -1,11 +1,11 @@
 import React from 'react';
-
+import Pagination from '@mui/material/Pagination';
 
 export const AppFooter = () =>{
     return(
-        <>
-            This is a AppFooter
-        </>
+        <div style={{display: "flex", justifyContent: "center"}}>
+            <Pagination count={10} color="primary" />
+        </div>
     );
 }
 

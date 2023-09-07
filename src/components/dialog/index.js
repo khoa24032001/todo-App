@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -8,15 +8,15 @@ import { DialogHeader } from './DialogHeader';
 
 const DialogStyle = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
+        padding: theme.spacing(2),
     },
     '& .MuiDialogActions-root': {
-      padding: theme.spacing(1),
+        padding: theme.spacing(1),
     },
-  }));
-  
+}));
 
-export const ExDialog = () => {
+
+export const ExDialog = ({ type, content }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -28,17 +28,19 @@ export const ExDialog = () => {
 
     return (
         <>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open dialog
+            <Button variant="contained" sx={{ color: "white", bgcolor: `${type.bgcolor}` }} onClick={handleClickOpen}>
+                {type.buttonType}
             </Button>
             <DialogStyle
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
+                scroll='paper'
+                fullWidth
             >
-                <DialogHeader close={handleClose}/>
-                <DialogBody/>
-                <DialogFooter close={handleClose}/>
+                <DialogHeader onClose={handleClose} dialogTitle={type.dialogTitle} />
+                <DialogBody type={type.buttonType} content={content} />
+                <DialogFooter onClose={handleClose} />
             </DialogStyle>
         </>
     );

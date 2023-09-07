@@ -2,16 +2,17 @@ import React from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import PropTypes from 'prop-types'
 
-export const DialogHeader = ({close}) => {
+export const DialogHeader = ({onClose, dialogTitle}) => {
     return(
         <>
-            <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-            Modal title
+            <DialogTitle sx={{ m: 0, p: 2, color: 'red', fontWeight: 'bold' }} id="customized-dialog-title">
+                {dialogTitle}
             </DialogTitle>
                 <IconButton
                     aria-label="close"
-                    onClick={()=>{close()}}
+                    onClick={onClose}
                     sx={{
                         position: 'absolute',
                         right: 8,
@@ -23,4 +24,9 @@ export const DialogHeader = ({close}) => {
                 </IconButton>
         </>
     )
+}
+
+DialogHeader.propTypes = {
+    close: PropTypes.func.isRequired,
+    dialogTitle: PropTypes.string.isRequired,
 }

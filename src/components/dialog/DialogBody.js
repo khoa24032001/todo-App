@@ -1,25 +1,29 @@
-import Typography from '@mui/material/Typography';
 import DialogContent from '@mui/material/DialogContent';
-
+import { DeleteDialog } from './dialogType/Delete';
+import { ViewDialog } from './dialogType/View';
 import React from 'react';
 
-export const DialogBody = () => {
+const renderSwitch = (type, content, color, status) => {
+  switch(type) {
+    case 'Delete':
+      return <DeleteDialog content = {content}/>;
+    
+    case 'view':
+      return <ViewDialog content = {content} color = {color} status = {status}/>;
+
+    default:
+      return (
+        <>
+          There is nothing in this dialog
+        </>
+      )
+  }
+};
+
+export const DialogBody = ({type, content, color, status}) => {
     return (
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-            ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+          {renderSwitch(type, content, color, status)}
         </DialogContent>
     );
 }

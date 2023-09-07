@@ -1,15 +1,12 @@
-import React from 'react'
-import { TodoList } from '../../features/todo/view-list/TodoList';
+import React from "react";
+import Stack from "@mui/material/Stack";
 
+export const AppContent = ({ contentRender = () => <></> }) => {
+  return (
+    <Stack direction={"column"} maxWidth="md" margin="0 auto">
+      {contentRender()}
+    </Stack>
+  );
+};
 
-export const AppContent = () =>{
-    return(
-        <>
-            <TodoList/>
-        </>
-    );
-}
-
-AppContent.propTypes = {
-    
-}
+AppContent.propTypes = {};

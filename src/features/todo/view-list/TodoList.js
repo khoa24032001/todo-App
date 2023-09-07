@@ -1,43 +1,20 @@
-import React from 'react'
-import { TodoItem } from './TodoItem'
-import { Container } from '@mui/material'
+import React from "react";
+import { TodoItem } from "./TodoItem";
+import { Container } from "@mui/material";
+import PropTypes from "prop-types";
 
+export const TodoList = ({ data }) => {
+  const listTodo = data.map((todo, idx) => (
+    <TodoItem
+      key={idx}
+      content={todo.content}
+      color={todo.color}
+      status={todo.completed}
+    />
+  ));
+  return <Container maxWidth="md">{listTodo}</Container>;
+};
 
-const Data = [
-    {
-        content: 'Learn React',
-        color: 'red',
-        completed: true
-    },
-    {
-        content: 'Learn Japanese',
-        color: 'blue',
-        completed: false
-    },
-    {
-        content: 'Learn History',
-        color: 'green',
-        completed: false
-    },
-    {
-        content: 'Learn Company Rules',
-        color: 'purple',
-        completed: true
-    },
-    {
-        content: 'Finish today task',
-        color: 'orange',
-        completed: true
-    }
-
-]
-
-export const TodoList = () =>{
-    const listTodo = Data.map((id) => <TodoItem content={id.content} color={id.color} status={id.completed} />)
-    return(
-        <Container maxWidth='md'>
-            {listTodo}
-        </Container>
-    )
-}
-    
+TodoList.propTypes = {
+  data: PropTypes.array.isRequired,
+};
