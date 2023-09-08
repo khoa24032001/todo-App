@@ -4,7 +4,8 @@ import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
-// import { Button } from '@mui/material';
+import Stack from "@mui/material/Stack";
+import { APP_BAR_HEIGHT } from "../../utils/constants";
 
 const AppHeaderStyle = {
   bgcolor: "#ffffff",
@@ -19,21 +20,20 @@ const AppHeaderStyle = {
  * @param {String} props.title - Title of header
  * @returns {*}
  */
-export const AppHeader = ({ title, renderActions }) => {
+export const AppHeader = ({ title, renderActions = () => <></> }) => {
   /// HANDLE
   return (
-    <Box sx={{ flexGrow: 1, boxShadow: "none" }}>
-      <AppBar position="static" sx={AppHeaderStyle}>
+    <Box sx={{ flexGrow: 1, boxShadow: "none", height: APP_BAR_HEIGHT }}>
+      <AppBar
+        position="fixed"
+        sx={AppHeaderStyle}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          {/* dock to rignt */}
-          {/* <Stack> 
-                buttons
-                {customAction}
-                {renderActions()}
-            </Stack> */}
+          <Stack>
+            {renderActions()}
+          </Stack>
         </Toolbar>
       </AppBar>
     </Box>
@@ -42,4 +42,5 @@ export const AppHeader = ({ title, renderActions }) => {
 
 AppHeader.propTypes = {
   title: PropTypes.string.isRequired,
+  renderActions: PropTypes.func,
 };

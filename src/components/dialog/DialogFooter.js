@@ -1,13 +1,11 @@
 import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 import React from 'react'
+import { ConfirmDialogButton } from '../buttons';
 
-export const DialogFooter = ({onClose}) => {
-    return(
+export const DialogFooter = ({ onClose, type }) => {
+    return (
         <DialogActions>
-            <Button autoFocus onClick={onClose}>
-                Save changes
-            </Button>
+            <ConfirmDialogButton onClose={onClose} type={type} />
         </DialogActions>
     );
 }

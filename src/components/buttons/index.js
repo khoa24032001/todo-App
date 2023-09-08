@@ -1,3 +1,3 @@
 export { ListTodoButton } from "./ListTodoButton";
-export { DeleteDialogButton } from "./DeleteDialogButton";
+export { ConfirmDialogButton } from "./ConfirmDialogButton";
 

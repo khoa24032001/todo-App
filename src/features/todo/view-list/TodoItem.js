@@ -15,6 +15,9 @@ import { DialogBody } from "../../../components/dialog/DialogBody";
 import { DialogFooter } from "../../../components/dialog/DialogFooter";
 import { DialogHeader } from "../../../components/dialog/DialogHeader";
 import { Stack } from "@mui/material";
+import { ViewDialog } from "../../dialog-type/ViewDialog";
+import useToggle from "../../../hooks/useToggle";
+
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   // alignItems: 'stretch',
@@ -35,15 +38,9 @@ const DialogStyle = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export const TodoItem = ({ content, color, status, changeStatus }) => {
-  const [open, setOpen] = React.useState(false);
+export const TodoItem = ({ content, color, status }) => {
+  const { toggle: isOpenViewDial, handleOpen, handleClose } = useToggle()
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <Box sx={{ flexGrow: 1, marginBottom: "15px", border: "1px solid #ddd" }}>
       <AppBar
@@ -62,9 +59,9 @@ export const TodoItem = ({ content, color, status, changeStatus }) => {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <CheckBox completed={status} change={changeStatus} />
+            <CheckBox state={status} />
           </IconButton>
-          <Stack flex={1} onClick={handleClickOpen}>
+          <Stack flex={1} onClick={handleOpen}>
             <Typography
               variant="h5"
               noWrap
@@ -79,12 +76,13 @@ export const TodoItem = ({ content, color, status, changeStatus }) => {
               {content}
             </Typography>
             <ColorTag color={color} />
+            <ViewDialog toggle={isOpenViewDial} handleOpen={handleOpen} handleClose={handleClose} />
           </Stack>
           <ListTodoButton content={content} />
         </StyledToolbar>
       </AppBar>
 
-      <DialogStyle
+      {/* <DialogStyle
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
@@ -98,7 +96,7 @@ export const TodoItem = ({ content, color, status, changeStatus }) => {
           status={status}
         />
         <DialogFooter onClose={handleClose} />
-      </DialogStyle>
+      </DialogStyle> */}
     </Box>
   );
 };
@@ -107,5 +105,4 @@ TodoItem.propTypes = {
   content: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   status: PropTypes.bool.isRequired,
-  changeStatus: PropTypes.func.isRequired,
 };

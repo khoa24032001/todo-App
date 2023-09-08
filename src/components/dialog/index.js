@@ -16,32 +16,23 @@ const DialogStyle = styled(Dialog)(({ theme }) => ({
 }));
 
 
-export const ExDialog = ({ type, content }) => {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
+export const DialogContainer = ({ open, onClose, children, ...props }) => {
     return (
         <>
-            <Button variant="contained" sx={{ color: "white", bgcolor: `${type.bgcolor}` }} onClick={handleClickOpen}>
-                {type.buttonType}
-            </Button>
             <DialogStyle
-                onClose={handleClose}
+                onClose={onClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
                 scroll='paper'
                 fullWidth
+                {...props}
             >
-                <DialogHeader onClose={handleClose} dialogTitle={type.dialogTitle} />
-                <DialogBody type={type.buttonType} content={content} />
-                <DialogFooter onClose={handleClose} />
+                {children}
             </DialogStyle>
         </>
     );
 }
+
+DialogContainer.Body = DialogBody
+DialogContainer.Footer = DialogFooter
+DialogContainer.Header = DialogHeader

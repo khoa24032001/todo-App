@@ -1,50 +1,36 @@
-import React from "react";
-import Stack from "@mui/material/Stack";
+import React, { useState } from "react";
 import "./App.css";
+import { Stack } from '@mui/material'
 import { AppHeader, AppContent, AppFooter } from "./components/app";
-import { Dropdown } from "./components/dropdown";
-import { COLORS, SORT, STATUS } from "./utils/constants";
+import { TodoFilter } from "./features/todo/view-list/TodoFilter";
 import TodoContainer from "./features/todo/view-list/TodoContainer";
+import { AddTodoButton } from "./components/buttons/AddTodoButton";
+import { AddDialog } from "./features/dialog-type/AddDialog";
 
 function App() {
+  const [todo, setTodo] = useState([]);
+  const [listTodo, setListTodo] = useState([]);
+
+  const handleAdd = () => {
+    setListTodo(prev => [...prev, todo])
+  }
+
   return (
     <div className="App">
-      <AppHeader title="TodoApp" />
+      <AppHeader title="TodoApp" renderActions={() => {
+        return (
+          <AddDialog handleSubmit={todo => setListTodo([...listTodo, todo])} />
+        )
+      }} />
       <AppContent
         contentRender={() => {
           return (
-            <>
-              <Stack
-                direction={{ xs: "column", sm: "row" }}
-                alignItems={{ xl: "center" }}
-                justifyContent="space-between"
-                spacing={{ xs: 2, xl: 0 }}
-                width={1}
-                maxWidth="md"
-                margin="0 auto"
-                sx={{ px: { xs: 1, md: 2 }, py: 2 }}
-              >
-                <Stack
-                  direction={{ xs: "column", sm: "row" }}
-                  alignItems={{ xs: "flex-start", sm: "stretch" }}
-                  spacing={{ xs: 1, sm: 2 }}
-                  flexGrow={1}
-                >
-                  <Dropdown input={COLORS} name="Color" />
-                  <Dropdown input={STATUS} name="Status" />
-                </Stack>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  spacing={{ xs: 1, md: 2 }}
-                  flexGrow={1}
-                >
-                  <Dropdown input={SORT} name="Sort by" />
-                </Stack>
+            <Stack >
+              <TodoFilter />
+              <Stack height='75vh' overflow='auto'>
+                <TodoContainer />
               </Stack>
-              <TodoContainer />
-            </>
+            </Stack>
           );
         }}
       />

@@ -15,3 +15,6 @@ export const SORT = [
   { value: "dateCreated", text: "DateCreated" },
   { value: "name", text: "Name" },
 ];
+
+
+export const APP_BAR_HEIGHT = 65
